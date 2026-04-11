@@ -7,7 +7,7 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
           <div className="col-span-1 md:col-span-1">
-            <span className="font-bold text-2xl text-white tracking-tight block mb-4">AstranovaHR</span>
+            <img src="/logo_footer.png" alt="AstranovaHR Logo" className="h-20 md:h-24 w-auto mb-6 bg-white rounded-lg p-2 object-contain" />
             <p className="text-sm text-slate-400 mb-6 leading-relaxed">
               End-to-end HR solutions empowering Indian businesses with efficient workforce management and comprehensive compliance.
             </p>
@@ -20,7 +20,7 @@ export default function Footer() {
               </a>
             </div>
           </div>
-          
+
           <div>
             <h3 className="text-white font-semibold mb-4">Services</h3>
             <ul className="space-y-3 text-sm">
@@ -53,12 +53,12 @@ export default function Footer() {
               </li>
               <li className="flex items-center">
                 <Mail size={18} className="mr-3 text-primary-500 shrink-0" />
-                <span>contact@astranovahr.in</span>
+                <span>contact@astranovahr.com</span>
               </li>
             </ul>
           </div>
         </div>
-        
+
         <div className="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-slate-500">
           <p>&copy; {new Date().getFullYear()} AstranovaHR. All rights reserved.</p>
           <div className="flex space-x-6 mt-4 md:mt-0">
