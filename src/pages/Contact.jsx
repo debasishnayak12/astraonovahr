@@ -1,13 +1,72 @@
-import { Mail, Phone, MapPin, Send, CheckCircle } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, CheckCircle, Loader2 } from 'lucide-react';
 import FadeIn from '../components/FadeIn';
 import { useState } from 'react';
 
 export default function Contact() {
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [formData, setFormData] = useState({
+    first_name: '',
+    last_name: '',
+    email: '',
+    company: '',
+    service: 'Recruitment & Talent Acquisition',
+    message: ''
+  });
 
-  const handleSubmit = (e) => {
+  const handleChange = (e) => {
+    const { id, value } = e.target;
+    // Map id to the keys expected by the API
+    const keyMap = {
+      firstName: 'first_name',
+      lastName: 'last_name',
+      email: 'email',
+      company: 'company',
+      service: 'service',
+      message: 'message'
+    };
+    
+    setFormData(prev => ({
+      ...prev,
+      [keyMap[id] || id]: value
+    }));
+    
+    if (error) setError(null);
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsSubmitted(true);
+    setIsLoading(true);
+    setError(null);
+
+    try {
+      const response = await fetch('https://astraonovahrbackend.onrender.com/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to submit. Please try again later.');
+      }
+
+      setIsSubmitted(true);
+      setFormData({
+        first_name: '',
+        last_name: '',
+        email: '',
+        company: '',
+        service: 'Recruitment & Talent Acquisition',
+        message: ''
+      });
+    } catch (err) {
+      setError(err.message || 'Something went wrong. Please try again.');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -58,8 +117,7 @@ export default function Contact() {
                      </div>
                      <div>
                        <h3 className="font-semibold text-lg mb-1">Email</h3>
-                       <p className="text-slate-400">contact@astranovahr.in</p>
-                       <p className="text-slate-400">sales@astranovahr.in</p>
+                       <p className="text-slate-400">contact@astranovahr.com</p>
                      </div>
                    </div>
                  </div>
@@ -76,8 +134,8 @@ export default function Contact() {
                      <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
                        <CheckCircle className="text-green-600" size={40} />
                      </div>
-                     <h3 className="text-3xl font-bold text-slate-900 mb-4">Under Construction</h3>
-                     <p className="text-xl text-slate-600 mb-8">This feature will be live soon! We received your attempt to contact us.</p>
+                     <h3 className="text-3xl font-bold text-slate-900 mb-4">Message Sent!</h3>
+                     <p className="text-xl text-slate-600 mb-8">Thank you for reaching out. Our team will get back to you shortly.</p>
                      <button 
                        onClick={() => setIsSubmitted(false)}
                        className="text-primary-600 font-medium hover:text-primary-700 underline"
@@ -87,7 +145,16 @@ export default function Contact() {
                    </div>
                 ) : (
                   <>
-                    <h2 className="text-3xl font-bold text-slate-900 mb-8">Book Your Consultation</h2>
+                    <div className="mb-8">
+                      <h2 className="text-3xl font-bold text-slate-900 mb-2">Book Your Consultation</h2>
+                      <p className="text-slate-500">All fields are mandatory.</p>
+                    </div>
+                    
+                    {error && (
+                      <div className="bg-red-50 border border-red-100 text-red-600 px-4 py-3 rounded-lg mb-6 text-sm">
+                        {error}
+                      </div>
+                    )}
                     
                     <form className="space-y-6" onSubmit={handleSubmit}>
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -96,6 +163,9 @@ export default function Contact() {
                           <input 
                             type="text" 
                             id="firstName" 
+                            name="first_name"
+                            value={formData.first_name}
+                            onChange={handleChange}
                             required
                             className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-colors"
                             placeholder="John"
@@ -106,6 +176,9 @@ export default function Contact() {
                           <input 
                             type="text" 
                             id="lastName"
+                            name="last_name"
+                            value={formData.last_name}
+                            onChange={handleChange}
                             required 
                             className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-colors"
                             placeholder="Doe"
@@ -119,6 +192,9 @@ export default function Contact() {
                           <input 
                             type="email" 
                             id="email" 
+                            name="email"
+                            value={formData.email}
+                            onChange={handleChange}
                             required
                             className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-colors"
                             placeholder="john@company.com"
@@ -129,6 +205,10 @@ export default function Contact() {
                           <input 
                             type="text" 
                             id="company" 
+                            name="company"
+                            value={formData.company}
+                            onChange={handleChange}
+                            required
                             className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-colors"
                             placeholder="Acme Corp"
                           />
@@ -139,13 +219,17 @@ export default function Contact() {
                         <label htmlFor="service" className="block text-sm font-medium text-slate-700 mb-2">Interested Service</label>
                         <select 
                           id="service" 
+                          name="service"
+                          value={formData.service}
+                          onChange={handleChange}
+                          required
                           className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-colors bg-white"
                         >
-                          <option>Recruitment & Talent Acquisition</option>
-                          <option>Payroll Outsourcing</option>
-                          <option>Workforce Solutions</option>
-                          <option>Legal & Compliance</option>
-                          <option>Other / Not Sure</option>
+                          <option value="Recruitment & Talent Acquisition">Recruitment & Talent Acquisition</option>
+                          <option value="Payroll Outsourcing">Payroll Outsourcing</option>
+                          <option value="Workforce Solutions">Workforce Solutions</option>
+                          <option value="Legal & Compliance">Legal & Compliance</option>
+                          <option value="Other / Not Sure">Other / Not Sure</option>
                         </select>
                       </div>
 
@@ -153,6 +237,9 @@ export default function Contact() {
                         <label htmlFor="message" className="block text-sm font-medium text-slate-700 mb-2">Message</label>
                         <textarea 
                           id="message" 
+                          name="message"
+                          value={formData.message}
+                          onChange={handleChange}
                           rows="4"
                           required
                           className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-colors resize-none"
@@ -162,10 +249,20 @@ export default function Contact() {
 
                       <button 
                         type="submit" 
-                        className="w-full bg-primary-600 text-white font-semibold py-4 rounded-lg hover:bg-primary-700 transition-colors shadow-lg shadow-primary-600/20 flex items-center justify-center group"
+                        disabled={isLoading}
+                        className={`w-full bg-primary-600 text-white font-semibold py-4 rounded-lg transition-colors shadow-lg shadow-primary-600/20 flex items-center justify-center group ${isLoading ? 'opacity-70 cursor-not-allowed' : 'hover:bg-primary-700'}`}
                       >
-                        Send Message
-                        <Send size={18} className="ml-2 group-hover:-translate-y-1 group-hover:translate-x-1 transition-transform" />
+                        {isLoading ? (
+                          <>
+                            <Loader2 size={18} className="mr-2 animate-spin" />
+                            Sending...
+                          </>
+                        ) : (
+                          <>
+                            Send Message
+                            <Send size={18} className="ml-2 group-hover:-translate-y-1 group-hover:translate-x-1 transition-transform" />
+                          </>
+                        )}
                       </button>
                     </form>
                   </>
