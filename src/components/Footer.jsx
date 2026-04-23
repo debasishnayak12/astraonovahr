@@ -45,11 +45,11 @@ export default function Footer() {
             <ul className="space-y-4 text-sm">
               <li className="flex items-start">
                 <MapPin size={18} className="mr-3 text-primary-500 shrink-0 mt-0.5" />
-                <span>Level 4, Corporate Park,<br />Mumbai, Maharashtra 400051</span>
+                <span>Sector 58,<br />Gurgaon, Haryana 122001</span>
               </li>
               <li className="flex items-center">
                 <Phone size={18} className="mr-3 text-primary-500 shrink-0" />
-                <span>+91 22 1234 5678</span>
+                <span>+91 95609 90007</span>
               </li>
               <li className="flex items-center">
                 <Mail size={18} className="mr-3 text-primary-500 shrink-0" />

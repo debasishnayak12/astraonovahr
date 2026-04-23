@@ -26,12 +26,12 @@ export default function Contact() {
       service: 'service',
       message: 'message'
     };
-    
+
     setFormData(prev => ({
       ...prev,
       [keyMap[id] || id]: value
     }));
-    
+
     if (error) setError(null);
   };
 
@@ -86,41 +86,41 @@ export default function Contact() {
           <div className="w-full lg:w-1/3">
             <FadeIn direction="right">
               <div className="bg-slate-900 text-white rounded-2xl p-8 shadow-xl relative overflow-hidden">
-                 <div className="absolute top-0 right-0 -mr-16 -mt-16 w-48 h-48 rounded-full bg-primary-600/30 blur-2xl"></div>
-                 <h2 className="text-3xl font-bold mb-8 relative z-10">Get in Touch</h2>
-                 
-                 <div className="space-y-8 relative z-10">
-                   <div className="flex items-start">
-                     <div className="bg-slate-800 p-3 rounded-lg mr-4 text-primary-400">
-                       <MapPin size={24} />
-                     </div>
-                     <div>
-                       <h3 className="font-semibold text-lg mb-1">Corporate Office</h3>
-                       <p className="text-slate-400 leading-relaxed">Level 4, Corporate Park,<br />Mumbai, Maharashtra 400051<br />India</p>
-                     </div>
-                   </div>
-                   
-                   <div className="flex items-start">
-                     <div className="bg-slate-800 p-3 rounded-lg mr-4 text-primary-400">
-                       <Phone size={24} />
-                     </div>
-                     <div>
-                       <h3 className="font-semibold text-lg mb-1">Phone</h3>
-                       <p className="text-slate-400">+91 22 1234 5678</p>
-                       <p className="text-slate-400">+91 98765 43210</p>
-                     </div>
-                   </div>
-                   
-                   <div className="flex items-start">
-                     <div className="bg-slate-800 p-3 rounded-lg mr-4 text-primary-400">
-                       <Mail size={24} />
-                     </div>
-                     <div>
-                       <h3 className="font-semibold text-lg mb-1">Email</h3>
-                       <p className="text-slate-400">contact@astranovahr.com</p>
-                     </div>
-                   </div>
-                 </div>
+                <div className="absolute top-0 right-0 -mr-16 -mt-16 w-48 h-48 rounded-full bg-primary-600/30 blur-2xl"></div>
+                <h2 className="text-3xl font-bold mb-8 relative z-10">Get in Touch</h2>
+
+                <div className="space-y-8 relative z-10">
+                  <div className="flex items-start">
+                    <div className="bg-slate-800 p-3 rounded-lg mr-4 text-primary-400">
+                      <MapPin size={24} />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-lg mb-1">Corporate Office</h3>
+                      <p className="text-slate-400 leading-relaxed">Sector 58<br />Gurgaon, Haryana 122001<br />India</p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start">
+                    <div className="bg-slate-800 p-3 rounded-lg mr-4 text-primary-400">
+                      <Phone size={24} />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-lg mb-1">Phone</h3>
+                      <p className="text-slate-400">+91 95609 90007</p>
+                      {/* <p className="text-slate-400">+91 95609 90007</p> */}
+                    </div>
+                  </div>
+
+                  <div className="flex items-start">
+                    <div className="bg-slate-800 p-3 rounded-lg mr-4 text-primary-400">
+                      <Mail size={24} />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-lg mb-1">Email</h3>
+                      <p className="text-slate-400">contact@astranovahr.com</p>
+                    </div>
+                  </div>
+                </div>
               </div>
             </FadeIn>
           </div>
@@ -130,39 +130,39 @@ export default function Contact() {
             <FadeIn direction="left">
               <div className="bg-white rounded-2xl p-8 md:p-12 shadow-sm border border-slate-100 min-h-[500px] flex flex-col justify-center">
                 {isSubmitted ? (
-                   <div className="text-center py-12">
-                     <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                       <CheckCircle className="text-green-600" size={40} />
-                     </div>
-                     <h3 className="text-3xl font-bold text-slate-900 mb-4">Message Sent!</h3>
-                     <p className="text-xl text-slate-600 mb-8">Thank you for reaching out. Our team will get back to you shortly.</p>
-                     <button 
-                       onClick={() => setIsSubmitted(false)}
-                       className="text-primary-600 font-medium hover:text-primary-700 underline"
-                     >
-                       Send another message
-                     </button>
-                   </div>
+                  <div className="text-center py-12">
+                    <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                      <CheckCircle className="text-green-600" size={40} />
+                    </div>
+                    <h3 className="text-3xl font-bold text-slate-900 mb-4">Message Sent!</h3>
+                    <p className="text-xl text-slate-600 mb-8">Thank you for reaching out. Our team will get back to you shortly.</p>
+                    <button
+                      onClick={() => setIsSubmitted(false)}
+                      className="text-primary-600 font-medium hover:text-primary-700 underline"
+                    >
+                      Send another message
+                    </button>
+                  </div>
                 ) : (
                   <>
                     <div className="mb-8">
                       <h2 className="text-3xl font-bold text-slate-900 mb-2">Book Your Consultation</h2>
                       <p className="text-slate-500">All fields are mandatory.</p>
                     </div>
-                    
+
                     {error && (
                       <div className="bg-red-50 border border-red-100 text-red-600 px-4 py-3 rounded-lg mb-6 text-sm">
                         {error}
                       </div>
                     )}
-                    
+
                     <form className="space-y-6" onSubmit={handleSubmit}>
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
                           <label htmlFor="firstName" className="block text-sm font-medium text-slate-700 mb-2">First Name</label>
-                          <input 
-                            type="text" 
-                            id="firstName" 
+                          <input
+                            type="text"
+                            id="firstName"
                             name="first_name"
                             value={formData.first_name}
                             onChange={handleChange}
@@ -173,25 +173,25 @@ export default function Contact() {
                         </div>
                         <div>
                           <label htmlFor="lastName" className="block text-sm font-medium text-slate-700 mb-2">Last Name</label>
-                          <input 
-                            type="text" 
+                          <input
+                            type="text"
                             id="lastName"
                             name="last_name"
                             value={formData.last_name}
                             onChange={handleChange}
-                            required 
+                            required
                             className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-colors"
                             placeholder="Doe"
                           />
                         </div>
                       </div>
-                      
+
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
                           <label htmlFor="email" className="block text-sm font-medium text-slate-700 mb-2">Work Email</label>
-                          <input 
-                            type="email" 
-                            id="email" 
+                          <input
+                            type="email"
+                            id="email"
                             name="email"
                             value={formData.email}
                             onChange={handleChange}
@@ -202,9 +202,9 @@ export default function Contact() {
                         </div>
                         <div>
                           <label htmlFor="company" className="block text-sm font-medium text-slate-700 mb-2">Company Name</label>
-                          <input 
-                            type="text" 
-                            id="company" 
+                          <input
+                            type="text"
+                            id="company"
                             name="company"
                             value={formData.company}
                             onChange={handleChange}
@@ -217,8 +217,8 @@ export default function Contact() {
 
                       <div>
                         <label htmlFor="service" className="block text-sm font-medium text-slate-700 mb-2">Interested Service</label>
-                        <select 
-                          id="service" 
+                        <select
+                          id="service"
                           name="service"
                           value={formData.service}
                           onChange={handleChange}
@@ -235,8 +235,8 @@ export default function Contact() {
 
                       <div>
                         <label htmlFor="message" className="block text-sm font-medium text-slate-700 mb-2">Message</label>
-                        <textarea 
-                          id="message" 
+                        <textarea
+                          id="message"
                           name="message"
                           value={formData.message}
                           onChange={handleChange}
@@ -247,8 +247,8 @@ export default function Contact() {
                         ></textarea>
                       </div>
 
-                      <button 
-                        type="submit" 
+                      <button
+                        type="submit"
                         disabled={isLoading}
                         className={`w-full bg-primary-600 text-white font-semibold py-4 rounded-lg transition-colors shadow-lg shadow-primary-600/20 flex items-center justify-center group ${isLoading ? 'opacity-70 cursor-not-allowed' : 'hover:bg-primary-700'}`}
                       >
